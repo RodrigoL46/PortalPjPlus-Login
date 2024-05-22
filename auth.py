@@ -9,9 +9,9 @@ from dotenv import load_dotenv
 
 load_dotenv('.env')
 
-CLIENT_ID = os.environ['CLIENT_ID']
-CLIENT_SECRET = os.environ['CLIENT_SECRET']
-REDIRECT_URI = os.environ['REDIRECT_URI']
+CLIENT_ID = st.secrets["google-clientId"]
+CLIENT_SECRET = st.secrets["google-clientSecret"]
+REDIRECT_URI = st.secrets["google-redirectUrl"]
 
 
 async def get_authorization_url(client: GoogleOAuth2, redirect_uri: str):
@@ -33,7 +33,9 @@ def get_login_str():
     client: GoogleOAuth2 = GoogleOAuth2(CLIENT_ID, CLIENT_SECRET)
     authorization_url = asyncio.run(
         get_authorization_url(client, REDIRECT_URI))
-    return f''' < a target = "_self" href = "{authorization_url}" > Google login < /a > '''
+    st.image('logos/rationiric.png', width=250)
+    st.markdown("---")
+    return f''' <a target = "_self" href = "{authorization_url}"> Google login </a> '''
 
 
 def display_user() -> void:
